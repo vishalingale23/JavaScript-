@@ -1,1 +1,387 @@
-# JavaScript-
+# JavaScript-<!-- ========================= PRACTICAL 1Area of Triangle, Rectangle, Circle======================== -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Area Calculator</title>
+</head>
+<body>
+
+<select onchange="run(this)">
+    <option disabled selected>Select Shape</option>
+    <option value="triangle">Triangle</option>
+    <option value="rectangle">Rectangle</option>
+    <option value="circle">Circle</option>
+</select>
+
+<div id="input"></div>
+<div id="output"></div>
+
+<script>
+class Shape {
+    areaTriangle(base, height) {
+        return 0.5 * base * height;
+    }
+
+    areaRectangle(length, width) {
+        return length * width;
+    }
+
+    areaCircle(radius) {
+        return Math.PI * radius * radius;
+    }
+}
+
+const shape = new Shape();
+
+function run(ele) {
+    const input = document.getElementById("input");
+
+    if(ele.value === "triangle") {
+        input.innerHTML = `
+            <input type="number" id="base" placeholder="Base">
+            <input type="number" id="height" placeholder="Height">
+            <button onclick="calc('triangle')">Calculate</button>
+        `;
+    }
+
+    if(ele.value === "rectangle") {
+        input.innerHTML = `
+            <input type="number" id="length" placeholder="Length">
+            <input type="number" id="width" placeholder="Width">
+            <button onclick="calc('rectangle')">Calculate</button>
+        `;
+    }
+
+    if(ele.value === "circle") {
+        input.innerHTML = `
+            <input type="number" id="radius" placeholder="Radius">
+            <button onclick="calc('circle')">Calculate</button>
+        `;
+    }
+}
+
+function calc(type) {
+    let ans;
+
+    if(type === "triangle") {
+        ans = shape.areaTriangle(
+            Number(document.getElementById("base").value),
+            Number(document.getElementById("height").value)
+        );
+    }
+
+    if(type === "rectangle") {
+        ans = shape.areaRectangle(
+            Number(document.getElementById("length").value),
+            Number(document.getElementById("width").value)
+        );
+    }
+
+    if(type === "circle") {
+        ans = shape.areaCircle(
+            Number(document.getElementById("radius").value)
+        );
+    }
+
+    document.getElementById("output").innerHTML =
+        `<h2>Area = ${ans.toFixed(2)}</h2>`;
+}
+</script>
+
+</body>
+</html>
+
+<!-- ========================= PRACTICAL 2 Multiplication Table========================= -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multiplication Table</title>
+</head>
+<body>
+
+<input type="number" id="num" placeholder="Enter Number">
+<button onclick="table()">Generate</button>
+
+<div id="output"></div>
+
+<script>
+function table() {
+    let num = Number(document.getElementById("num").value);
+    let result = "";
+
+    for(let i = 1; i <= 10; i++) {
+        result += `${num} x ${i} = ${num * i}<br>`;
+    }
+
+    document.getElementById("output").innerHTML = result;
+}
+</script>
+
+</body>
+</html>
+
+<!-- ========================= PRACTICAL 3 Reverse, Replace, Palindrome========================= -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>String Operations</title>
+</head>
+<body>
+
+<input type="text" id="text" placeholder="Enter String">
+
+<button onclick="reverseString()">Reverse</button>
+<button onclick="replaceSpace()">Replace Space</button>
+<button onclick="checkPalindrome()">Palindrome</button>
+
+<h3 id="output"></h3>
+
+<script>
+function reverseString() {
+    let str = document.getElementById("text").value;
+    let rev = str.split("").reverse().join("");
+    document.getElementById("output").innerHTML = rev;
+}
+
+function replaceSpace() {
+    let str = document.getElementById("text").value;
+    let newStr = str.replaceAll(" ", "_");
+    document.getElementById("output").innerHTML = newStr;
+}
+
+function checkPalindrome() {
+    let str = document.getElementById("text").value;
+    let rev = str.split("").reverse().join("");
+
+    if(str === rev)
+        document.getElementById("output").innerHTML =
+            "Palindrome String";
+    else
+        document.getElementById("output").innerHTML =
+            "Not Palindrome";
+}
+</script>
+
+</body>
+</html>
+
+<!-- ========================= PRACTICAL 4 – Compare Two Strings========================= -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Compare Strings</title>
+</head>
+<body>
+
+<input type="text" id="str1" placeholder="String 1">
+<input type="text" id="str2" placeholder="String 2">
+
+<button onclick="compare()">Compare</button>
+
+<pre id="output"></pre>
+
+<script>
+function compare() {
+
+    let str1 = document.getElementById("str1").value;
+    let str2 = document.getElementById("str2").value;
+
+    let result = "";
+
+    result += "Direct Compare : " +
+        (str1 === str2 ? "Equal" : "Not Equal") + "\n";
+
+    result += "Case Insensitive : " +
+        (str1.toLowerCase() === str2.toLowerCase()
+        ? "Equal" : "Not Equal") + "\n";
+
+    result += "Locale Compare : " +
+        str1.localeCompare(str2);
+
+    document.getElementById("output").textContent = result;
+}
+</script>
+
+</body>
+</html>
+
+<!-- ========================= PRACTICAL 5 Countdown Timer ========================= -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Countdown Timer</title>
+</head>
+<body>
+
+<h1 id="timer">00:00</h1>
+
+<script>
+let time = 60;
+
+function updateTimer() {
+
+    let minutes = Math.floor(time / 60);
+    let seconds = time % 60;
+
+    document.getElementById("timer").innerHTML =
+        `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+    if(time <= 0) {
+        clearInterval(counter);
+        document.getElementById("timer").innerHTML = "Time Up!";
+    }
+
+    time--;
+}
+
+let counter = setInterval(updateTimer, 1000);
+</script>
+
+</body>
+</html>
+
+<!-- ========================= PRACTICAL 6 Array Operations========================= -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Array Operations</title>
+</head>
+<body>
+
+<script>
+let arr = [1,2,3,4,5];
+
+console.log("Original Array:", arr);
+
+arr = arr.filter(item => item !== 3);
+console.log("After Remove:", arr);
+
+console.log(arr.includes(4));
+
+arr = [];
+console.log(arr);
+</script>
+
+</body>
+</html>
+
+<!-- ========================= PRACTICAL 7 Set Operations ========================= -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Set Operations</title>
+</head>
+<body>
+
+<script>
+let A = new Set([1,2,3,4]);
+let B = new Set([3,4,5,6]);
+
+let union = new Set([...A, ...B]);
+console.log("Union:", union);
+
+let intersection = new Set([...A].filter(x => B.has(x)));
+console.log("Intersection:", intersection);
+
+let difference = new Set([...A].filter(x => !B.has(x)));
+console.log("Difference:", difference);
+
+let subset = [...A].every(x => B.has(x));
+console.log("Subset:", subset);
+</script>
+
+</body>
+</html>
+
+<!-- ========================= PRACTICAL 8 Mouseover and Focus Event========================= -->
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1 onmouseover="mouseOver(this)"
+    onmouseout="mouseOut(this)">
+    Mouse Over Me
+</h1>
+
+<input type="text"
+       onfocus="focusColor(this)"
+       placeholder="Click Here">
+
+<script>
+function mouseOver(x) {
+    x.style.color = "red";
+}
+
+function mouseOut(x) {
+    x.style.color = "black";
+}
+
+function focusColor(x) {
+    x.style.backgroundColor = "yellow";
+}
+</script>
+
+</body>
+</html>
+
+<!-- ========================= PRACTICAL 9 Simple Calculator========================= -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Calculator</title>
+</head>
+<body>
+
+<input type="text" id="display" readonly><br><br>
+
+<button onclick="append('1')">1</button>
+<button onclick="append('2')">2</button>
+<button onclick="append('3')">3</button>
+<button onclick="append('+')">+</button><br><br>
+
+<button onclick="append('4')">4</button>
+<button onclick="append('5')">5</button>
+<button onclick="append('6')">6</button>
+<button onclick="append('-')">-</button><br><br>
+
+<button onclick="append('7')">7</button>
+<button onclick="append('8')">8</button>
+<button onclick="append('9')">9</button>
+<button onclick="append('*')">*</button><br><br>
+
+<button onclick="append('0')">0</button>
+<button onclick="calculate()">=</button>
+<button onclick="clearDisplay()">C</button>
+<button onclick="append('/')">/</button>
+
+<script>
+let display = document.getElementById("display");
+
+function append(value) {
+    display.value += value;
+}
+
+function clearDisplay() {
+    display.value = "";
+}
+
+function calculate() {
+    try {
+        display.value = eval(display.value);
+    }
+    catch {
+        alert("Invalid Input");
+    }
+}
+</script>
+
+</body>
+</html>
